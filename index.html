@@ -277,7 +277,7 @@
     font-size: clamp(1.6rem, 5vw, 2.2rem);
     color: var(--parchment);
     text-decoration:none;
-    padding: 0.9rem 0;
+    padding: 0.6rem 0;
     transition: color 0.25s ease;
   }
   .menu-panel a:hover, .menu-panel a:focus-visible{
@@ -286,7 +286,7 @@
 
   .menu-panel .bonus-tag{
     display:block;
-    margin-top: 1.6rem;
+    margin-top: 0.7rem;
     font-family:'Inter', sans-serif;
     font-size: 0.78rem;
     color: var(--leaf);
@@ -297,7 +297,7 @@
   .register-form{
     display:none;
     flex-direction:column;
-    gap: 0.9rem;
+    gap: 0.65rem;
     width: min(320px, 84vw);
     margin: 0 auto;
   }
@@ -314,7 +314,7 @@
     color: var(--parchment);
     font-family:'Inter', sans-serif;
     font-size: 0.92rem;
-    padding: 0.75rem 0.9rem;
+    padding: 0.7rem 0.9rem;
     border-radius: 8px;
     outline:none;
     transition: border-color 0.25s ease;
@@ -323,7 +323,7 @@
   .register-form input:focus{ border-color: var(--gold); }
 
   .register-form button[type="submit"]{
-    margin-top: 0.4rem;
+    margin-top: 0.2rem;
     background: var(--gold);
     color: var(--bg);
     border:none;
@@ -331,7 +331,7 @@
     font-weight:500;
     font-size: 0.88rem;
     letter-spacing: 0.03em;
-    padding: 0.8rem;
+    padding: 0.75rem;
     border-radius: 8px;
     cursor:pointer;
     transition: opacity 0.25s ease;
@@ -347,16 +347,18 @@
     font-size: 0.76rem;
     cursor:pointer;
     text-align:center;
-    margin-top: 0.3rem;
+    margin-top: 0.1rem;
   }
   .register-form .back-link:hover{ color: var(--gold); }
 
   .form-message{
     font-family:'Inter', sans-serif;
-    font-size: 0.84rem;
+    font-size: 0.82rem;
     text-align:center;
-    min-height: 1.2em;
+    line-height: 1.4;
+    margin-top: -0.15rem;
   }
+  .form-message:empty{ min-height:0; margin:0; }
   .form-message.success{ color: var(--leaf); }
   .form-message.error{ color: #c0654f; }
 
@@ -482,7 +484,7 @@
         phPassword: "Password",
         submitBtn: "Crea account",
         backLink: "← Torna al menu",
-        msgSuccess: "Registrazione completata! Riceverai i tuoi 5 libri appena il sito sarà online.",
+        msgSuccess: "Account creato! Controlla la tua email per confermare la registrazione. Riceverai i tuoi 5 libri appena il sito sarà online.",
         msgError: "Si è verificato un errore. Riprova."
       },
       en: {
@@ -502,7 +504,7 @@
         phPassword: "Password",
         submitBtn: "Create account",
         backLink: "← Back to menu",
-        msgSuccess: "Registration complete! You'll receive your 5 books as soon as the site is back online.",
+        msgSuccess: "Account created! Check your email to confirm your registration. You'll receive your 5 books as soon as the site is back online.",
         msgError: "Something went wrong. Please try again."
       },
       de: {
@@ -522,7 +524,7 @@
         phPassword: "Passwort",
         submitBtn: "Konto erstellen",
         backLink: "← Zurück zum Menü",
-        msgSuccess: "Registrierung abgeschlossen! Du erhältst deine 5 Bücher, sobald die Seite wieder online ist.",
+        msgSuccess: "Konto erstellt! Bestätige deine Registrierung per E-Mail. Du erhältst deine 5 Bücher, sobald die Seite wieder online ist.",
         msgError: "Etwas ist schiefgelaufen. Bitte versuche es erneut."
       },
       es: {
@@ -542,7 +544,7 @@
         phPassword: "Contraseña",
         submitBtn: "Crear cuenta",
         backLink: "← Volver al menú",
-        msgSuccess: "¡Registro completo! Recibirás tus 5 libros en cuanto el sitio esté en línea.",
+        msgSuccess: "¡Cuenta creada! Revisa tu correo para confirmar el registro. Recibirás tus 5 libros en cuanto el sitio esté en línea.",
         msgError: "Algo salió mal. Inténtalo de nuevo."
       },
       fr: {
@@ -562,7 +564,7 @@
         phPassword: "Mot de passe",
         submitBtn: "Créer un compte",
         backLink: "← Retour au menu",
-        msgSuccess: "Inscription terminée ! Tu recevras tes 5 livres dès que le site sera de nouveau en ligne.",
+        msgSuccess: "Compte créé ! Confirme ton inscription via l'e-mail reçu. Tu recevras tes 5 livres dès que le site sera de nouveau en ligne.",
         msgError: "Une erreur s'est produite. Réessaie."
       }
     };
