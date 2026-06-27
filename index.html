@@ -215,6 +215,84 @@
     border-color: var(--gold);
   }
 
+  /* Hamburger menu */
+  .hamburger{
+    position: fixed;
+    top: 1.6rem;
+    right: 1.6rem;
+    z-index: 30;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    border: 1px solid var(--rule);
+    background: rgba(13,11,7,0.6);
+    backdrop-filter: blur(4px);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    cursor:pointer;
+    transition: border-color 0.25s ease;
+  }
+  .hamburger:hover, .hamburger:focus-visible{
+    border-color: var(--gold);
+  }
+  .hamburger svg{ width:20px; height:20px; }
+  .hamburger .line{
+    stroke: var(--parchment);
+    stroke-width: 1.6;
+    stroke-linecap: round;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+  }
+  .hamburger.open .line1{ transform: translateY(5px) rotate(45deg); }
+  .hamburger.open .line2{ opacity:0; }
+  .hamburger.open .line3{ transform: translateY(-5px) rotate(-45deg); }
+
+  .menu-overlay{
+    position: fixed;
+    inset: 0;
+    background: rgba(7,6,5,0.92);
+    backdrop-filter: blur(6px);
+    z-index: 20;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    opacity:0;
+    visibility:hidden;
+    transition: opacity 0.35s ease, visibility 0.35s ease;
+  }
+  .menu-overlay.open{
+    opacity:1;
+    visibility:visible;
+  }
+
+  .menu-panel{
+    text-align:center;
+  }
+
+  .menu-panel a{
+    display:block;
+    font-family:'Fraunces', serif;
+    font-style:italic;
+    font-weight:500;
+    font-size: clamp(1.6rem, 5vw, 2.2rem);
+    color: var(--parchment);
+    text-decoration:none;
+    padding: 0.9rem 0;
+    transition: color 0.25s ease;
+  }
+  .menu-panel a:hover, .menu-panel a:focus-visible{
+    color: var(--gold);
+  }
+
+  .menu-panel .bonus-tag{
+    display:block;
+    margin-top: 1.6rem;
+    font-family:'Inter', sans-serif;
+    font-size: 0.78rem;
+    color: var(--leaf);
+    letter-spacing: 0.04em;
+  }
+
   footer{
     margin-top: 4rem;
     font-size: 0.72rem;
@@ -245,6 +323,22 @@
 </style>
 </head>
 <body>
+
+  <button class="hamburger" id="hamburgerBtn" aria-label="Apri menu" aria-expanded="false">
+    <svg viewBox="0 0 24 24" fill="none">
+      <line class="line line1" x1="4" y1="7" x2="20" y2="7"></line>
+      <line class="line line2" x1="4" y1="12" x2="20" y2="12"></line>
+      <line class="line line3" x1="4" y1="17" x2="20" y2="17"></line>
+    </svg>
+  </button>
+
+  <div class="menu-overlay" id="menuOverlay">
+    <div class="menu-panel">
+      <a href="https://tally.so/r/xXoaDr" target="_blank" rel="noopener" data-i18n="registerLink">Registrati</a>
+      <a href="https://t.me/enkrateiaxyz" data-i18n="telegramMenu">Canale Telegram</a>
+      <span class="bonus-tag" data-i18n="bonusTag">Registrandoti ora ricevi 5 libri in omaggio</span>
+    </div>
+  </div>
 
   <div class="frame">
 
@@ -301,7 +395,10 @@
         statusValue: "Manutenzione in corso",
         telegram: "Canale Telegram",
         writeUs: "Scrivici",
-        footer: "© Enkrateia — Il libro che nasce quando ti ascolti."
+        footer: "© Enkrateia — Il libro che nasce quando ti ascolti.",
+        registerLink: "Registrati",
+        telegramMenu: "Canale Telegram",
+        bonusTag: "Registrandoti ora ricevi 5 libri in omaggio"
       },
       en: {
         eyebrow: "Enkrateia",
@@ -311,7 +408,10 @@
         statusValue: "Maintenance in progress",
         telegram: "Telegram Channel",
         writeUs: "Write to us",
-        footer: "© Enkrateia — The book that's born when you listen to yourself."
+        footer: "© Enkrateia — The book that's born when you listen to yourself.",
+        registerLink: "Sign up",
+        telegramMenu: "Telegram Channel",
+        bonusTag: "Sign up now and get 5 free books"
       },
       de: {
         eyebrow: "Enkrateia",
@@ -321,7 +421,10 @@
         statusValue: "Wartungsarbeiten laufen",
         telegram: "Telegram-Kanal",
         writeUs: "Schreib uns",
-        footer: "© Enkrateia — Das Buch, das entsteht, wenn du auf dich hörst."
+        footer: "© Enkrateia — Das Buch, das entsteht, wenn du auf dich hörst.",
+        registerLink: "Registrieren",
+        telegramMenu: "Telegram-Kanal",
+        bonusTag: "Jetzt registrieren und 5 Bücher gratis erhalten"
       },
       es: {
         eyebrow: "Enkrateia",
@@ -331,7 +434,10 @@
         statusValue: "Mantenimiento en curso",
         telegram: "Canal de Telegram",
         writeUs: "Escríbenos",
-        footer: "© Enkrateia — El libro que nace cuando te escuchas."
+        footer: "© Enkrateia — El libro que nace cuando te escuchas.",
+        registerLink: "Regístrate",
+        telegramMenu: "Canal de Telegram",
+        bonusTag: "Regístrate ahora y recibe 5 libros gratis"
       },
       fr: {
         eyebrow: "Enkrateia",
@@ -341,7 +447,10 @@
         statusValue: "Maintenance en cours",
         telegram: "Canal Telegram",
         writeUs: "Écrivez-nous",
-        footer: "© Enkrateia — Le livre qui naît quand on s'écoute."
+        footer: "© Enkrateia — Le livre qui naît quand on s'écoute.",
+        registerLink: "Inscris-toi",
+        telegramMenu: "Canal Telegram",
+        bonusTag: "Inscris-toi maintenant et reçois 5 livres gratuits"
       }
     };
 
@@ -366,6 +475,20 @@
     document.getElementById('emailBtn').addEventListener('click', () => {
       const reveal = document.getElementById('emailReveal');
       reveal.style.display = reveal.style.display === 'none' ? 'block' : 'none';
+    });
+
+    const hamburgerBtn = document.getElementById('hamburgerBtn');
+    const menuOverlay = document.getElementById('menuOverlay');
+
+    function toggleMenu(){
+      const isOpen = menuOverlay.classList.toggle('open');
+      hamburgerBtn.classList.toggle('open', isOpen);
+      hamburgerBtn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+    }
+
+    hamburgerBtn.addEventListener('click', toggleMenu);
+    menuOverlay.addEventListener('click', (e) => {
+      if (e.target === menuOverlay) toggleMenu();
     });
   </script>
 
