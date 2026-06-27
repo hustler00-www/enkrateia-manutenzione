@@ -293,6 +293,73 @@
     letter-spacing: 0.04em;
   }
 
+  /* Register form */
+  .register-form{
+    display:none;
+    flex-direction:column;
+    gap: 0.9rem;
+    width: min(320px, 84vw);
+    margin: 0 auto;
+  }
+  .register-form.open{
+    display:flex;
+  }
+  .menu-panel.showing-form a.menu-link{
+    display:none;
+  }
+
+  .register-form input{
+    background: rgba(239,230,211,0.05);
+    border: 1px solid var(--rule);
+    color: var(--parchment);
+    font-family:'Inter', sans-serif;
+    font-size: 0.92rem;
+    padding: 0.75rem 0.9rem;
+    border-radius: 8px;
+    outline:none;
+    transition: border-color 0.25s ease;
+  }
+  .register-form input::placeholder{ color: var(--parchment-dim); opacity:0.6; }
+  .register-form input:focus{ border-color: var(--gold); }
+
+  .register-form button[type="submit"]{
+    margin-top: 0.4rem;
+    background: var(--gold);
+    color: var(--bg);
+    border:none;
+    font-family:'Inter', sans-serif;
+    font-weight:500;
+    font-size: 0.88rem;
+    letter-spacing: 0.03em;
+    padding: 0.8rem;
+    border-radius: 8px;
+    cursor:pointer;
+    transition: opacity 0.25s ease;
+  }
+  .register-form button[type="submit"]:hover{ opacity:0.88; }
+  .register-form button[type="submit"]:disabled{ opacity:0.5; cursor:not-allowed; }
+
+  .register-form .back-link{
+    background:none;
+    border:none;
+    color: var(--parchment-dim);
+    font-family:'Inter', sans-serif;
+    font-size: 0.76rem;
+    cursor:pointer;
+    text-align:center;
+    margin-top: 0.3rem;
+  }
+  .register-form .back-link:hover{ color: var(--gold); }
+
+  .form-message{
+    font-family:'Inter', sans-serif;
+    font-size: 0.84rem;
+    text-align:center;
+    min-height: 1.2em;
+  }
+  .form-message.success{ color: var(--leaf); }
+  .form-message.error{ color: #c0654f; }
+
   footer{
     margin-top: 4rem;
     font-size: 0.72rem;
@@ -333,12 +400,23 @@
   </button>
 
   <div class="menu-overlay" id="menuOverlay">
-    <div class="menu-panel">
-      <a href="https://tally.so/r/xXoaDr" target="_blank" rel="noopener" data-i18n="registerLink">Registrati</a>
-      <a href="https://t.me/enkrateiaxyz" data-i18n="telegramMenu">Canale Telegram</a>
-      <span class="bonus-tag" data-i18n="bonusTag">Registrandoti ora ricevi 5 libri in omaggio</span>
+    <div class="menu-panel" id="menuPanel">
+      <a href="#" id="openRegisterBtn" class="menu-link" data-i18n="registerLink">Registrati</a>
+      <a href="https://t.me/enkrateiaxyz" class="menu-link" data-i18n="telegramMenu">Canale Telegram</a>
+      <span class="bonus-tag menu-link" data-i18n="bonusTag">Registrandoti ora ricevi 5 libri in omaggio</span>
+
+      <form class="register-form" id="registerForm">
+        <input type="text" id="regUsername" placeholder="Nome utente" data-i18n-placeholder="phUsername" autocomplete="username" required>
+        <input type="email" id="regEmail" placeholder="Email" data-i18n-placeholder="phEmail" autocomplete="email" required>
+        <input type="password" id="regPassword" placeholder="Password" data-i18n-placeholder="phPassword" autocomplete="new-password" minlength="6" required>
+        <button type="submit" id="regSubmitBtn" data-i18n="submitBtn">Crea account</button>
+        <p class="form-message" id="formMessage"></p>
+        <button type="button" class="back-link" id="backToMenuBtn" data-i18n="backLink">← Torna al menu</button>
+      </form>
     </div>
   </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
   <div class="frame">
 
@@ -398,7 +476,14 @@
         footer: "© Enkrateia — Il libro che nasce quando ti ascolti.",
         registerLink: "Registrati",
         telegramMenu: "Canale Telegram",
-        bonusTag: "Registrandoti ora ricevi 5 libri in omaggio"
+        bonusTag: "Registrandoti ora ricevi 5 libri in omaggio",
+        phUsername: "Nome utente",
+        phEmail: "Email",
+        phPassword: "Password",
+        submitBtn: "Crea account",
+        backLink: "← Torna al menu",
+        msgSuccess: "Registrazione completata! Riceverai i tuoi 5 libri appena il sito sarà online.",
+        msgError: "Si è verificato un errore. Riprova."
       },
       en: {
         eyebrow: "Enkrateia",
@@ -411,7 +496,14 @@
         footer: "© Enkrateia — The book that's born when you listen to yourself.",
         registerLink: "Sign up",
         telegramMenu: "Telegram Channel",
-        bonusTag: "Sign up now and get 5 free books"
+        bonusTag: "Sign up now and get 5 free books",
+        phUsername: "Username",
+        phEmail: "Email",
+        phPassword: "Password",
+        submitBtn: "Create account",
+        backLink: "← Back to menu",
+        msgSuccess: "Registration complete! You'll receive your 5 books as soon as the site is back online.",
+        msgError: "Something went wrong. Please try again."
       },
       de: {
         eyebrow: "Enkrateia",
@@ -424,7 +516,14 @@
         footer: "© Enkrateia — Das Buch, das entsteht, wenn du auf dich hörst.",
         registerLink: "Registrieren",
         telegramMenu: "Telegram-Kanal",
-        bonusTag: "Jetzt registrieren und 5 Bücher gratis erhalten"
+        bonusTag: "Jetzt registrieren und 5 Bücher gratis erhalten",
+        phUsername: "Benutzername",
+        phEmail: "E-Mail",
+        phPassword: "Passwort",
+        submitBtn: "Konto erstellen",
+        backLink: "← Zurück zum Menü",
+        msgSuccess: "Registrierung abgeschlossen! Du erhältst deine 5 Bücher, sobald die Seite wieder online ist.",
+        msgError: "Etwas ist schiefgelaufen. Bitte versuche es erneut."
       },
       es: {
         eyebrow: "Enkrateia",
@@ -437,7 +536,14 @@
         footer: "© Enkrateia — El libro que nace cuando te escuchas.",
         registerLink: "Regístrate",
         telegramMenu: "Canal de Telegram",
-        bonusTag: "Regístrate ahora y recibe 5 libros gratis"
+        bonusTag: "Regístrate ahora y recibe 5 libros gratis",
+        phUsername: "Nombre de usuario",
+        phEmail: "Correo electrónico",
+        phPassword: "Contraseña",
+        submitBtn: "Crear cuenta",
+        backLink: "← Volver al menú",
+        msgSuccess: "¡Registro completo! Recibirás tus 5 libros en cuanto el sitio esté en línea.",
+        msgError: "Algo salió mal. Inténtalo de nuevo."
       },
       fr: {
         eyebrow: "Enkrateia",
@@ -450,7 +556,14 @@
         footer: "© Enkrateia — Le livre qui naît quand on s'écoute.",
         registerLink: "Inscris-toi",
         telegramMenu: "Canal Telegram",
-        bonusTag: "Inscris-toi maintenant et reçois 5 livres gratuits"
+        bonusTag: "Inscris-toi maintenant et reçois 5 livres gratuits",
+        phUsername: "Nom d'utilisateur",
+        phEmail: "E-mail",
+        phPassword: "Mot de passe",
+        submitBtn: "Créer un compte",
+        backLink: "← Retour au menu",
+        msgSuccess: "Inscription terminée ! Tu recevras tes 5 livres dès que le site sera de nouveau en ligne.",
+        msgError: "Une erreur s'est produite. Réessaie."
       }
     };
 
@@ -460,11 +573,18 @@
         const key = el.getAttribute('data-i18n');
         if (dict[key] !== undefined) el.innerHTML = dict[key];
       });
+      document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+        const key = el.getAttribute('data-i18n-placeholder');
+        if (dict[key] !== undefined) el.setAttribute('placeholder', dict[key]);
+      });
       document.documentElement.lang = lang;
       document.querySelectorAll('#langSwitch button').forEach(btn => {
         btn.classList.toggle('active', btn.getAttribute('data-lang') === lang);
       });
+      currentLang = lang;
     }
+
+    let currentLang = 'it';
 
     document.getElementById('langSwitch').addEventListener('click', (e) => {
       const btn = e.target.closest('button[data-lang]');
@@ -489,6 +609,67 @@
     hamburgerBtn.addEventListener('click', toggleMenu);
     menuOverlay.addEventListener('click', (e) => {
       if (e.target === menuOverlay) toggleMenu();
+    });
+
+    // --- Supabase setup ---
+    const SUPABASE_URL = "https://zchdpamcijtyvsrqguxj.supabase.co";
+    const SUPABASE_KEY = "sb_publishable_ePAiTUzofSI-IgPq6iyFCg_iTZZmS1W";
+    const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+    const menuPanel = document.getElementById('menuPanel');
+    const openRegisterBtn = document.getElementById('openRegisterBtn');
+    const registerForm = document.getElementById('registerForm');
+    const backToMenuBtn = document.getElementById('backToMenuBtn');
+    const formMessage = document.getElementById('formMessage');
+    const regSubmitBtn = document.getElementById('regSubmitBtn');
+
+    openRegisterBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      menuPanel.classList.add('showing-form');
+      registerForm.classList.add('open');
+    });
+
+    backToMenuBtn.addEventListener('click', () => {
+      menuPanel.classList.remove('showing-form');
+      registerForm.classList.remove('open');
+      formMessage.textContent = '';
+      formMessage.className = 'form-message';
+    });
+
+    registerForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const username = document.getElementById('regUsername').value.trim();
+      const email = document.getElementById('regEmail').value.trim();
+      const password = document.getElementById('regPassword').value;
+
+      if (!username || !email || password.length < 6) return;
+
+      regSubmitBtn.disabled = true;
+      formMessage.textContent = '';
+      formMessage.className = 'form-message';
+
+      try {
+        const { data, error } = await supabaseClient.auth.signUp({
+          email: email,
+          password: password,
+          options: {
+            data: { username: username, registered_during_maintenance: true }
+          }
+        });
+
+        if (error) throw error;
+
+        const dict = translations[currentLang] || translations.it;
+        formMessage.textContent = dict.msgSuccess;
+        formMessage.classList.add('success');
+        registerForm.reset();
+      } catch (err) {
+        const dict = translations[currentLang] || translations.it;
+        formMessage.textContent = err.message || dict.msgError;
+        formMessage.classList.add('error');
+      } finally {
+        regSubmitBtn.disabled = false;
+      }
     });
   </script>
 
